@@ -16,3 +16,9 @@ include_directories(${CUDA_INCLUDE_DIRS})
 # Executable file
 add_executable(main_dehazing main_dehazing.cpp)
 target_link_libraries(main_dehazing ${OpenCV_LIBRARIES} ${Boost_LIBRARIES})
+
+# Test code
+if (BUILD_TESTS)
+    enable_testing()
+    add_subdirectory(tests)
+endif()
