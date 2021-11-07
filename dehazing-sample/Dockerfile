@@ -61,4 +61,8 @@ RUN cmake -D CMAKE_BUILD_TYPE=RELEASE \
 
 RUN make -j${NPROC} && make install
 
+# The others
+RUN apt-get update -y
+RUN apt-get install -y libboost-all-dev
+
 WORKDIR /
