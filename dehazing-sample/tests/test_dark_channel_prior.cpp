@@ -14,8 +14,8 @@ TEST(DarkChannelTest, DarkChannelPrior) {
 
     // Execute
     const int neighborRadius = 15;
-    DarkChannelPrior darkChannelPrior(inputImage.size(), neighborRadius);
-    darkChannelPrior.execute(inputImage, outputImage);
+    DarkChannelPrior *darkChannelPrior = new DarkChannelPrior(inputImage.size(), neighborRadius);
+    darkChannelPrior->execute(inputImage, outputImage);
 
     EXPECT_EQ(equal2Images(outputImage, referenceImage), true);
 }
