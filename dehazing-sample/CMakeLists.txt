@@ -12,10 +12,13 @@ find_package(Boost COMPONENTS program_options system filesystem REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
 include_directories(${Boost_INCLUDE_DIRS})
 include_directories(${CUDA_INCLUDE_DIRS})
+include_directories(include)
+
+add_subdirectory(src)
 
 # Executable file
 add_executable(main_dehazing main_dehazing.cpp)
-target_link_libraries(main_dehazing ${OpenCV_LIBRARIES} ${Boost_LIBRARIES})
+target_link_libraries(main_dehazing ${OpenCV_LIBRARIES} ${Boost_LIBRARIES} dehazing)
 
 # Test code
 if (BUILD_TESTS)
