@@ -3,11 +3,18 @@
 #include "utils.hpp"
 
 TEST(DarkChannelTest, DarkChannelPrior) {
-    cv::Mat inputImage = cv::imread("data/original.png");
-    cv::Mat referenceImage = cv::imread("data/dark_channel.png", cv::IMREAD_GRAYSCALE);
+    // Path
+    const std::string inputImagePath = "data/original.png";
+    const std::string referenceImagePath = "data/dark_channel.png";
+
+    // Read images
+    const cv::Mat inputImage = cv::imread(inputImagePath);
+    const cv::Mat referenceImage = cv::imread(referenceImagePath, cv::IMREAD_GRAYSCALE);
     cv::Mat outputImage;
 
-    DarkChannelPrior darkChannelPrior(inputImage.size(), 15);
+    // Execute
+    const int neighborRadius = 15;
+    DarkChannelPrior darkChannelPrior(inputImage.size(), neighborRadius);
     darkChannelPrior.execute(inputImage, outputImage);
 
     EXPECT_EQ(equal2Images(outputImage, referenceImage), true);
