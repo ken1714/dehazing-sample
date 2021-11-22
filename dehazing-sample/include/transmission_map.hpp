@@ -4,11 +4,12 @@
 
 class TransmissionMap: public ImageProcess {
     public:
-        TransmissionMap(const cv::Size imageSize, const cv::Mat& guideImage, const int guidedFilterRadius, const double guidedFilterEps);
-        void execute(const cv::Mat& inputImage, cv::Mat& outputImage);
+        TransmissionMap(const cv::Size imageSize, const double omega, const int guidedFilterRadius, const double guidedFilterEps);
+        void execute(const cv::Mat& inputImage, const cv::Mat& guideImage, const cv::Vec3b atmosphericLight, cv::Mat& outputImage);
 
     protected:
+        double _omega;
         int _guidedFilterRadius;
         double _guidedFilterEps;
-        cv::Mat _guideImage;
+        void calcRoughTransmission(const cv::Mat& darkChannelImage, const cv::Vec3b atmosphericLight, cv::Mat& roughTransmission);
 };
