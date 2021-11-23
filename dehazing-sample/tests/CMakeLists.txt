@@ -11,4 +11,5 @@ endfunction(build_test)
 
 build_test(test_atmospheric_light test_atmospheric_light.cpp)
 build_test(test_dark_channel_prior test_dark_channel_prior.cpp)
+build_test(test_remove_haze test_remove_haze.cpp)
 build_test(test_transmission_map test_transmission_map.cpp)
