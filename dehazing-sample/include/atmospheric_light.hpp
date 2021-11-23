@@ -14,7 +14,7 @@ class AtmosphericLight {
         int _candidateAreaThreshold;
         double _candidateAreaRate;
         cv::Mat _candidateAreaImage;
-        int calculateCandidateAreaLowerbound(const cv::Mat& darkChannelImage);
+        int calcCandidateAreaLowerbound(const cv::Mat& darkChannelImage);
         cv::Vec3b extractAtmosphericLight(const cv::Mat& originalImage, const cv::Mat& darkChannelImage, const int candidateAreaThreshold);
         void drawCandidateArea(const cv::Mat& originalImage, const cv::Mat& darkChannelImage, const int candidateAreaThreshold);
 };
