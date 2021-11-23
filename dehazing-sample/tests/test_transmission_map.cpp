@@ -19,7 +19,7 @@ TEST(TransmissionMapTest, TransmissionMap) {
     const int guidedFilterRadius = 30;
     const double guidedFilterEps = 30;
     const cv::Vec3b atmosphericLight = cv::Vec3b(255, 252, 249);
-    TransmissionMap *transmissionMap = new TransmissionMap(inputImage.size(), omega, guidedFilterRadius, guidedFilterEps);
+    TransmissionMap *transmissionMap = new TransmissionMap(omega, guidedFilterRadius, guidedFilterEps);
     transmissionMap->execute(inputImage, guideImage, atmosphericLight, outputImage);
 
     EXPECT_EQ(equal2Images(outputImage, referenceImage), true);

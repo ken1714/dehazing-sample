@@ -2,8 +2,8 @@
 #include <opencv2/ximgproc/edge_filter.hpp>
 
 
-TransmissionMap::TransmissionMap(const cv::Size imageSize, const double omega, const int guidedFilterRadius, const double guidedFilterEps):
-    ImageProcess(imageSize), _omega(omega), _guidedFilterRadius(guidedFilterRadius), _guidedFilterEps(guidedFilterEps) {
+TransmissionMap::TransmissionMap(const double omega, const int guidedFilterRadius, const double guidedFilterEps):
+    _omega(omega), _guidedFilterRadius(guidedFilterRadius), _guidedFilterEps(guidedFilterEps) {
     if (omega < 0 || omega > 1.0) {
         std::cerr << "Invalid omega for calculating rough transmission. Please set [0, 1] value." << std::endl;
     }

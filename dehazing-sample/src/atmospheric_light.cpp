@@ -9,7 +9,7 @@ AtmosphericLight::AtmosphericLight(const double candidateAreaRate): _candidateAr
 
 
 void AtmosphericLight::execute(const cv::Mat& originalImage, const cv::Mat& darkChannelImage, cv::Vec3b& atmosphericLight){
-    _candidateAreaThreshold = calculateCandidateAreaLowerbound(darkChannelImage);
+    _candidateAreaThreshold = calcCandidateAreaLowerbound(darkChannelImage);
 
     atmosphericLight = extractAtmosphericLight(originalImage, darkChannelImage, _candidateAreaThreshold);
 }
@@ -20,16 +20,16 @@ cv::Mat AtmosphericLight::getCandidateAreaImage() {
 }
 
 
-int AtmosphericLight::calculateCandidateAreaLowerbound(const cv::Mat& darkChannelImage) {
+int AtmosphericLight::calcCandidateAreaLowerbound(const cv::Mat& darkChannelImage) {
     const int imageHeight = darkChannelImage.rows;
     const int imageWidth  = darkChannelImage.cols;
     const int pixelNum = imageHeight * imageWidth;
 
     // Calculate histogram of dark channel image.
     int darkChannelHistogram[256] = {};
-    for(int y = 0; y < imageHeight; y++) {
+    for (int y = 0; y < imageHeight; y++) {
         const unsigned char* darkChannelPtr = darkChannelImage.ptr(y);
-        for(int x = 0; x < imageWidth; x++) {
+        for (int x = 0; x < imageWidth; x++) {
             darkChannelHistogram[(int)(unsigned char)darkChannelPtr[x]]++;
         }
     }
@@ -39,9 +39,9 @@ int AtmosphericLight::calculateCandidateAreaLowerbound(const cv::Mat& darkChanne
     const double candidatePixelNum = pixelNum * _candidateAreaRate;
     int sumDarkChannel = 0;
     int candidateAreaThreshold;
-    for(int intensity = maxDarkChannel; intensity >= 0; intensity--) {
+    for (int intensity = maxDarkChannel; intensity >= 0; intensity--) {
         sumDarkChannel += darkChannelHistogram[intensity];
-        if(sumDarkChannel >= candidatePixelNum) {
+        if (sumDarkChannel >= candidatePixelNum) {
             candidateAreaThreshold = intensity;
             break;
         }
@@ -58,18 +58,18 @@ cv::Vec3b AtmosphericLight::extractAtmosphericLight(const cv::Mat& originalImage
     // Extract atmospheric light from original image
     int maxIntensity = 0;
     cv::Vec3b atmosphericLight(3);
-    for(int y = 0; y < imageHeight; y++) {
+    for (int y = 0; y < imageHeight; y++) {
         const cv::Vec3b* originalImagePtr = originalImage.ptr<cv::Vec3b>(y);
         const unsigned char* darkChannelPtr = darkChannelImage.ptr(y);
-        for(int x = 0; x < imageWidth; x++) {
-            if((int)(unsigned char)darkChannelPtr[x] < candidateAreaThreshold) {
+        for (int x = 0; x < imageWidth; x++) {
+            if ((int)(unsigned char)darkChannelPtr[x] < candidateAreaThreshold) {
                 continue;
             }
 
             // Extract the most highest intensity as atmospheric light.
             for(int channel = 0; channel < 3; channel++) {
                 int intensity = (int)(unsigned char)originalImagePtr[x][channel];
-                if(maxIntensity < intensity) {
+                if (maxIntensity < intensity) {
                     maxIntensity = intensity;
                     atmosphericLight = originalImagePtr[x];
                 }
@@ -86,11 +86,11 @@ void AtmosphericLight::drawCandidateArea(const cv::Mat& originalImage, const cv:
     const int imageWidth  = originalImage.cols;
 
     originalImage.copyTo(_candidateAreaImage);
-    for(int y = 0; y < imageHeight; y++) {
+    for (int y = 0; y < imageHeight; y++) {
         cv::Vec3b* candidateAreaPtr = _candidateAreaImage.ptr<cv::Vec3b>(y);
         const unsigned char* darkChannelPtr = darkChannelImage.ptr(y);
-        for(int x = 0; x < imageWidth; x++) {
-            if((int)(unsigned char)darkChannelPtr[x] < candidateAreaThreshold) {
+        for (int x = 0; x < imageWidth; x++) {
+            if ((int)(unsigned char)darkChannelPtr[x] < candidateAreaThreshold) {
                 continue;
             }
 
