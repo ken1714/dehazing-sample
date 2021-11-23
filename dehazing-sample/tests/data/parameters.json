@@ -1,0 +1,8 @@
+{
+    "candidateAreaRate": 0.001,
+    "darkChannelNeighborRadius": 15,
+    "minTransmission": 0.1,
+    "omega": 0.95,
+    "guidedFilterRadius": 30,
+    "guidedFilterEps": 30
+}
