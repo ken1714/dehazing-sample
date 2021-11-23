@@ -9,7 +9,7 @@ AtmosphericLight::AtmosphericLight(const double candidateAreaRate): _candidateAr
 
 
 void AtmosphericLight::execute(const cv::Mat& originalImage, const cv::Mat& darkChannelImage, cv::Vec3b& atmosphericLight){
-    _candidateAreaThreshold = calculateCandidateAreaLowerbound(darkChannelImage);
+    _candidateAreaThreshold = calcCandidateAreaLowerbound(darkChannelImage);
 
     atmosphericLight = extractAtmosphericLight(originalImage, darkChannelImage, _candidateAreaThreshold);
 }
@@ -20,7 +20,7 @@ cv::Mat AtmosphericLight::getCandidateAreaImage() {
 }
 
 
-int AtmosphericLight::calculateCandidateAreaLowerbound(const cv::Mat& darkChannelImage) {
+int AtmosphericLight::calcCandidateAreaLowerbound(const cv::Mat& darkChannelImage) {
     const int imageHeight = darkChannelImage.rows;
     const int imageWidth  = darkChannelImage.cols;
     const int pixelNum = imageHeight * imageWidth;
