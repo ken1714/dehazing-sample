@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <chrono>
 #include <opencv2/opencv.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/program_options.hpp>
@@ -90,10 +91,17 @@ int main(int argc, char **argv) {
         const std::string inputFilePathStr = inputFilePath.string();
         const fs::path filename = inputFilePath.filename();
         const cv::Mat inputImage = cv::imread(inputFilePathStr);
-        std::cout << filename.string() << std::endl;
+        std::chrono::system_clock::time_point start, end;
 
+        // execute
         cv::Mat outputImage;
+        start = std::chrono::system_clock::now();
         dehazing->execute(inputImage, outputImage);
+        end = std::chrono::system_clock::now();
+
+        auto processTime = end - start;
+        auto processTimeMsec = std::chrono::duration_cast<std::chrono::milliseconds>(processTime).count();
+        std::cout << filename.string() << ": Image size is " << inputImage.size() << ", processing time is " << processTimeMsec << "[msec]." << std::endl;
 
         // output
         const std::string outputFilePathStr = fs::path(outputImageDirPath / filename).string();
