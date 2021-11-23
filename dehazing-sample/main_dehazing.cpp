@@ -66,7 +66,7 @@ int main(int argc, char **argv) {
 
     // If not exist parameter json file
     if (!fs::exists(parameterJson)) {
-        std::cout << "Directory " << parameterJson << " is not found." << std::endl;
+        std::cout << parameterJson << " is not found." << std::endl;
         return 1;
     }
 
