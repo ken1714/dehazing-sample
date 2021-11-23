@@ -1,7 +1,7 @@
 #include "remove_haze.hpp"
 
 
-RemoveHaze::RemoveHaze(const cv::Size imageSize, const double minTransmission): ImageProcess(imageSize), _minTransmission(minTransmission) {
+RemoveHaze::RemoveHaze(const double minTransmission): _minTransmission(minTransmission) {
     if (minTransmission < 0 || minTransmission > 1.0) {
         std::cerr << "Invalid minimum value of transmission. Please set [0, 1] value." << std::endl;
     }
