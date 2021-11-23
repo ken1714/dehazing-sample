@@ -100,7 +100,7 @@ int main(int argc, char **argv) {
         end = std::chrono::system_clock::now();
 
         auto processTime = end - start;
-        auto processTimeMsec = std::chrono::duration_cast<std::chrono::milliseconds>(processTime).count();
+        auto processTimeMsec = std::chrono::duration_cast<std::chrono::nanoseconds>(processTime).count() / 1e6;
         std::cout << filename.string() << ": Image size is " << inputImage.size() << ", processing time is " << processTimeMsec << "[msec]." << std::endl;
 
         // output
