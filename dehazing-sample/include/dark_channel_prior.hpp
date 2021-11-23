@@ -4,7 +4,7 @@
 
 class DarkChannelPrior: public ImageProcess {
     public:
-        DarkChannelPrior(const cv::Size imageSize, const int neighborRadius);
+        DarkChannelPrior(const int neighborRadius);
         void execute(const cv::Mat& inputImage, cv::Mat& outputImage);
 
     protected:
