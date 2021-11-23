@@ -11,7 +11,7 @@ TEST(RemoveHazeTest, RemoveHaze) {
 
     // Read images
     const cv::Mat inputImage = cv::imread(inputImagePath);
-    const cv::Mat transmissionMap = cv::imread(transmissionPath);
+    const cv::Mat transmissionMap = cv::imread(transmissionPath, cv::IMREAD_GRAYSCALE);
     const cv::Mat referenceImage = cv::imread(referenceImagePath);
     cv::Mat outputImage;
 
