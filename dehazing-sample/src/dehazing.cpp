@@ -4,18 +4,10 @@
 Dehazing::Dehazing(const double candidateAreaRate, const int darkChannelNeighborRadius, const double minTransmission,
                    const double omega, const int guidedFilterRadius, const double guidedFilterEps) {
     // Initialization
-    atmosphericLightEstimator = new AtmosphericLight(candidateAreaRate);
-    darkChannelPrior = new DarkChannelPrior(darkChannelNeighborRadius);
-    hazeRemover = new RemoveHaze(minTransmission);
-    transmissionMapEstimator = new TransmissionMap(omega, guidedFilterRadius, guidedFilterEps);
-}
-
-
-Dehazing::~Dehazing() {
-    delete atmosphericLightEstimator;
-    delete darkChannelPrior;
-    delete hazeRemover;
-    delete transmissionMapEstimator;
+    atmosphericLightEstimator = std::make_unique<AtmosphericLight>(candidateAreaRate);
+    darkChannelPrior          = std::make_unique<DarkChannelPrior>(darkChannelNeighborRadius);
+    hazeRemover               = std::make_unique<RemoveHaze>(minTransmission);
+    transmissionMapEstimator  = std::make_unique<TransmissionMap>(omega, guidedFilterRadius, guidedFilterEps);
 }
 
 

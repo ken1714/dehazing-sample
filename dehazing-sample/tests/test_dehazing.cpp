@@ -22,7 +22,7 @@ TEST(DehazingTest, Dehazing) {
     const double guidedFilterEps = 30;
 
     // Execute
-    Dehazing *dehazing = new Dehazing(candidateAreaRate, darkChannelNeighborRadius, minTransmission, omega, guidedFilterRadius, guidedFilterEps);
+    std::unique_ptr<Dehazing> dehazing(new Dehazing(candidateAreaRate, darkChannelNeighborRadius, minTransmission, omega, guidedFilterRadius, guidedFilterEps));
     dehazing->execute(inputImage, outputImage);
 
     EXPECT_EQ(equal2Images(outputImage, referenceImage), true);

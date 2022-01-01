@@ -81,7 +81,7 @@ int main(int argc, char **argv) {
     const double guidedFilterEps = parameters.get<double>("guidedFilterEps");
 
     // Initialize dehazing object
-    Dehazing *dehazing = new Dehazing(candidateAreaRate, darkChannelNeighborRadius, minTransmission, omega, guidedFilterRadius, guidedFilterEps);
+    std::unique_ptr<Dehazing> dehazing(new Dehazing(candidateAreaRate, darkChannelNeighborRadius, minTransmission, omega, guidedFilterRadius, guidedFilterEps));
 
     // Scan all files in inputImageDir
     const fs::directory_iterator inputImageFiles= fs::directory_iterator(fs::path(inputImageDir));
@@ -107,8 +107,6 @@ int main(int argc, char **argv) {
         const std::string outputFilePathStr = fs::path(outputImageDirPath / filename).string();
         cv::imwrite(outputFilePathStr, outputImage);
     }
-
-    delete dehazing;
 
     return 0;
 }
