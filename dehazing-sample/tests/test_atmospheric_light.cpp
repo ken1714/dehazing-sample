@@ -14,7 +14,7 @@ TEST(AtmosphericLightTest, AtmosphericLight) {
     // Execute
     const double candidateAreaRate = 0.001;
     cv::Vec3b atmosphericLight;
-    AtmosphericLight *atmosphericLightEstimator = new AtmosphericLight(candidateAreaRate);
+    std::unique_ptr<AtmosphericLight> atmosphericLightEstimator(new AtmosphericLight(candidateAreaRate));
     atmosphericLightEstimator->execute(inputImage, darkChannelImage, atmosphericLight);
 
     EXPECT_EQ((int)(unsigned char)atmosphericLight[0], 255);
