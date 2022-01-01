@@ -12,12 +12,12 @@ class Dehazing {
     public:
         Dehazing(const double candidateAreaRate, const int darkChannelNeighborRadius, const double minTransmission,
                  const double omega, const int guidedFilterRadius, const double guidedFilterEps);
-        ~Dehazing();
+        ~Dehazing() {};
         void execute(const cv::Mat& originalImage, cv::Mat& dehazedImage);
 
     protected:
-        AtmosphericLight *atmosphericLightEstimator;
-        DarkChannelPrior *darkChannelPrior;
-        RemoveHaze *hazeRemover;
-        TransmissionMap *transmissionMapEstimator;
+        std::unique_ptr<AtmosphericLight> atmosphericLightEstimator;
+        std::unique_ptr<DarkChannelPrior> darkChannelPrior;
+        std::unique_ptr<RemoveHaze> hazeRemover;
+        std::unique_ptr<TransmissionMap> transmissionMapEstimator;
 };
