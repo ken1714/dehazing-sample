@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.1)
 project(dehazing-sample)
 
 set(CMAKE_CXX_STANDARD 17)
+set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS}; -std=c++17")
 
 # Dependencies
 find_package(OpenCV REQUIRED)
@@ -17,7 +18,7 @@ include_directories(include)
 add_subdirectory(src)
 
 # Executable file
-add_executable(main_dehazing main_dehazing.cpp)
+cuda_add_executable(main_dehazing main_dehazing.cpp)
 target_link_libraries(main_dehazing ${OpenCV_LIBRARIES} ${Boost_LIBRARIES} dehazing)
 
 # Test code
