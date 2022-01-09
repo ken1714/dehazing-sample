@@ -1,5 +1,4 @@
 #include "remove_haze.cuh"
-#include <stdio.h>
 
 
 __global__ void dehazeGPU(unsigned char* const inputValue, unsigned char* const transmission, unsigned char* dehazedValue,
