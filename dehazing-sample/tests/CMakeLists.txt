@@ -4,7 +4,7 @@ add_subdirectory(googletest)
 # Build macro
 function(build_test test_name test_src)
     # Executable file
-    add_executable(${test_name} ${test_src} src/utils.cpp)
+    cuda_add_executable(${test_name} ${test_src} src/utils.cpp)
     target_link_libraries(${test_name} ${OpenCV_LIBRARIES} ${Boost_LIBRARIES} dehazing gmock gtest gmock_main)
     add_test(NAME ${test_name} COMMAND ${test_name} WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 endfunction(build_test)
