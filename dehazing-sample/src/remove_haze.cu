@@ -2,7 +2,7 @@
 
 
 __global__ void dehazeGPU(unsigned char* const inputValue, unsigned char* const transmission, unsigned char* dehazedValue,
-                          const double minTransmission, double* const atmosphericLight,
+                          const float minTransmission, float* const atmosphericLight,
                           const int imageWidth, const int imageHeight) {
 
     int channelNum = 3;
@@ -12,10 +12,10 @@ __global__ void dehazeGPU(unsigned char* const inputValue, unsigned char* const 
 
     if (xIdx >= imageWidth || yIdx >= imageHeight || zIdx >= channelNum) return;
 
-    double transmissionValue = transmission[yIdx * imageWidth + xIdx] / 255.0;
+    float transmissionValue = (float)(unsigned char)transmission[yIdx * imageWidth + xIdx] / 255.0;
     transmissionValue = (transmissionValue > minTransmission) ? transmissionValue: minTransmission;
 
-    double dehazed = ((double)(unsigned char)inputValue[(yIdx * imageWidth + xIdx) * channelNum + zIdx] - atmosphericLight[zIdx]) / transmissionValue + atmosphericLight[zIdx];
+    float dehazed = ((float)(unsigned char)inputValue[(yIdx * imageWidth + xIdx) * channelNum + zIdx] - atmosphericLight[zIdx]) / transmissionValue + atmosphericLight[zIdx];
 
     if (dehazed > 255) {
         dehazed = 255;
@@ -28,7 +28,7 @@ __global__ void dehazeGPU(unsigned char* const inputValue, unsigned char* const 
 
 
 void executeDehazeGPU(unsigned char* const inputValue, unsigned char* const transmission, unsigned char* dehazedValue,
-                      const double minTransmission, double* const atmosphericLight,
+                      const float minTransmission, float* const atmosphericLight,
                       const int imageWidth, const int imageHeight) {
     // Block and grid settings
     int channelNum = 3;
@@ -36,8 +36,8 @@ void executeDehazeGPU(unsigned char* const inputValue, unsigned char* const tran
     dim3 grid((imageWidth + block.x - 1) / block.x, (imageHeight + block.y - 1) / block.y);
 
     // Copy atmospheric light from host to device
-    double *dAtmosphericLight;
-    int atmosphericLightMemSize = sizeof(double) * channelNum;
+    float *dAtmosphericLight;
+    int atmosphericLightMemSize = sizeof(float) * channelNum;
     cudaMalloc((void **)&dAtmosphericLight, atmosphericLightMemSize);
     cudaMemcpy(dAtmosphericLight, atmosphericLight, atmosphericLightMemSize, cudaMemcpyHostToDevice);
 
