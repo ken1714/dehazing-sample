@@ -41,6 +41,9 @@ void RemoveHaze::execute(const cv::Mat& inputImage, const cv::Mat& transmissionM
 void RemoveHaze::execute(const cv::cuda::GpuMat& inputImage, const cv::cuda::GpuMat& transmissionMap, const cv::Vec3b atmosphericLight, cv::cuda::GpuMat& outputImage) {
     const int imageHeight = inputImage.rows;
     const int imageWidth  = inputImage.cols;
+    double atmosphericLightArray[3] = {(double)(unsigned char)atmosphericLight[0],
+                                       (double)(unsigned char)atmosphericLight[1],
+                                       (double)(unsigned char)atmosphericLight[2]};
 
-    executeDehazeGPU(inputImage.data, transmissionMap.data, outputImage.data, _minTransmission, atmosphericLight[0], atmosphericLight[1], atmosphericLight[2], imageWidth, imageHeight);
+    executeDehazeGPU(inputImage.data, transmissionMap.data, outputImage.data, _minTransmission, atmosphericLightArray, imageWidth, imageHeight);
 }
