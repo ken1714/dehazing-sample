@@ -1,11 +1,14 @@
 include_directories(include)
 add_subdirectory(googletest)
 
+file(GLOB TEST_SRC_FILES src/*.cpp)
+cuda_add_library(dehazingtest ${TEST_SRC_FILES} SHARED)
+
 # Build macro
 function(build_test test_name test_src)
     # Executable file
-    cuda_add_executable(${test_name} ${test_src} src/utils.cpp)
-    target_link_libraries(${test_name} ${OpenCV_LIBRARIES} ${Boost_LIBRARIES} dehazing gmock gtest gmock_main)
+    cuda_add_executable(${test_name} ${test_src})
+    target_link_libraries(${test_name} ${OpenCV_LIBRARIES} ${Boost_LIBRARIES} dehazing dehazingtest gmock gtest gmock_main)
     add_test(NAME ${test_name} COMMAND ${test_name} WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 endfunction(build_test)
 
