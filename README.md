@@ -109,6 +109,4 @@ $ ./samples/main_dehazing ../dataset/input ../dataset/output ../tests/data/param
 |guidedFilterEps          |透過率マップの平滑化度合い                             |
 
 
-## 参考文献
-
 [^he]: K. He, J. Sun, and X. Tang, “Single image haze removal using dark channel prior,” *IEEE Trans. Pattern Anal. Mach. Intell.,* vol. 33, no. 12, pp. 2341–2353, 2011.
