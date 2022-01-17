@@ -1,7 +1,7 @@
 # ヘイズ除去プログラム
 ## 1. 概要
 
-静止画像を入力し、ヘイズを除去した画像を出力するプログラム。He[^1]の手法をベースに実装している。
+静止画像を入力し、ヘイズを除去した画像を出力するプログラム。He[^he]の手法をベースに実装している。
 
 ## 2. 実行環境とその構築
 
@@ -111,4 +111,4 @@ $ ./samples/main_dehazing ../dataset/input ../dataset/output ../tests/data/param
 
 ## 参考文献
 
-[^1] K. He, J. Sun, and X. Tang, “Single image haze removal using dark channel prior,” *IEEE Trans. Pattern Anal. Mach. Intell.,* vol. 33, no. 12, pp. 2341–2353, 2011.
+[^he]: K. He, J. Sun, and X. Tang, “Single image haze removal using dark channel prior,” *IEEE Trans. Pattern Anal. Mach. Intell.,* vol. 33, no. 12, pp. 2341–2353, 2011.
