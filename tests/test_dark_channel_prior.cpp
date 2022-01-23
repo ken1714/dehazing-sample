@@ -16,8 +16,8 @@ TEST(DarkChannelTest, DarkChannelPrior) {
     cv::Mat outputImage;
 
     // Execute
-    const int neighborRadius = 15;
-    std::unique_ptr<DarkChannelPrior> darkChannelPrior(new DarkChannelPrior(neighborRadius));
+    const int neighborSize = 15;
+    std::unique_ptr<DarkChannelPrior> darkChannelPrior(new DarkChannelPrior(neighborSize));
     darkChannelPrior->execute(inputImage, outputImage);
 
     EXPECT_EQ(equal2Images(outputImage, referenceImage), true);
@@ -36,8 +36,8 @@ TEST(DarkChannelTestCUDA, DarkChannelPriorCUDA) {
     cv::cuda::GpuMat dOutputImage(inputImage.rows, inputImage.cols, CV_8UC1);
 
     // Execute
-    const int neighborRadius = 15;
-    std::unique_ptr<DarkChannelPrior> darkChannelPrior(new DarkChannelPrior(neighborRadius));
+    const int neighborSize = 15;
+    std::unique_ptr<DarkChannelPrior> darkChannelPrior(new DarkChannelPrior(neighborSize));
     darkChannelPrior->execute(dInputImage, dOutputImage);
 
     dOutputImage.download(outputImage);
