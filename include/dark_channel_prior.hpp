@@ -6,6 +6,7 @@ class DarkChannelPrior: public ImageProcess {
     public:
         DarkChannelPrior(const int neighborRadius);
         void execute(const cv::Mat& inputImage, cv::Mat& outputImage);
+        void execute(const cv::cuda::GpuMat& inputImage, cv::cuda::GpuMat& outputImage);
 
     protected:
         cv::Mat _darkChannelNeighbor;

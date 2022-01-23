@@ -1,4 +1,6 @@
 #include "dark_channel_prior.hpp"
+#include "dark_channel_prior.cuh"
+
 
 DarkChannelPrior::DarkChannelPrior(const int neighborRadius) {
     // Set erosion element (matrix's value must be 1)
@@ -30,4 +32,11 @@ void DarkChannelPrior::calcRGBMinimum(const cv::Mat& inputImage, cv::Mat& RGBMin
 
 void DarkChannelPrior::calcDarkChannel(const cv::Mat& RGBMinimumImage, cv::Mat& darkChannelImage) {
     cv::erode(RGBMinimumImage, darkChannelImage, _darkChannelNeighbor);
+}
+
+
+void DarkChannelPrior::execute(const cv::cuda::GpuMat& inputImage, cv::cuda::GpuMat& outputImage) {
+    const int imageHeight = inputImage.rows;
+    const int imageWidth  = inputImage.cols;
+    executeDarkChannelPriorGPU(inputImage.data, outputImage.data, imageWidth, imageHeight);
 }
