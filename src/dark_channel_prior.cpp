@@ -38,5 +38,7 @@ void DarkChannelPrior::calcDarkChannel(const cv::Mat& RGBMinimumImage, cv::Mat& 
 void DarkChannelPrior::execute(const cv::cuda::GpuMat& inputImage, cv::cuda::GpuMat& outputImage) {
     const int imageHeight = inputImage.rows;
     const int imageWidth  = inputImage.cols;
-    executeDarkChannelPriorGPU(inputImage.data, outputImage.data, imageWidth, imageHeight);
+    cv::cuda::GpuMat RGBMinimumImage(inputImage.size(), CV_8UC1);
+
+    executeDarkChannelPriorGPU(inputImage.data, RGBMinimumImage.data, outputImage.data, _darkChannelNeighbor.rows / 2, imageWidth, imageHeight);
 }
