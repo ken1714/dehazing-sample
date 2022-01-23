@@ -9,15 +9,6 @@ DarkChannelPrior::DarkChannelPrior(const int neighborSize) {
 }
 
 
-void DarkChannelPrior::execute(const cv::Mat& inputImage, cv::Mat& outputImage) {
-    cv::Mat RGBMinimumImage;
-
-    calcRGBMinimum(inputImage, RGBMinimumImage);
-
-    calcDarkChannel(RGBMinimumImage, outputImage);
-}
-
-
 void DarkChannelPrior::calcRGBMinimum(const cv::Mat& inputImage, cv::Mat& RGBMinimumImage) {
     std::vector<cv::Mat> planes;
 
@@ -33,6 +24,15 @@ void DarkChannelPrior::calcRGBMinimum(const cv::Mat& inputImage, cv::Mat& RGBMin
 
 void DarkChannelPrior::calcDarkChannel(const cv::Mat& RGBMinimumImage, cv::Mat& darkChannelImage) {
     cv::erode(RGBMinimumImage, darkChannelImage, _darkChannelNeighbor);
+}
+
+
+void DarkChannelPrior::execute(const cv::Mat& inputImage, cv::Mat& outputImage) {
+    cv::Mat RGBMinimumImage;
+
+    calcRGBMinimum(inputImage, RGBMinimumImage);
+
+    calcDarkChannel(RGBMinimumImage, outputImage);
 }
 
 
