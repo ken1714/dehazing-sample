@@ -13,7 +13,7 @@ Dockerコンテナ上での実行を想定している。以降、その構成�
 
 ### 2.1 Docker環境の構成
 
-- ベースイメージ: [nvidia/cuda:11.4.2-devel-ubuntu20.04](https://hub.docker.com/layers/nvidia/cuda/11.4.2-devel-ubuntu20.04/images/sha256-594f08b6eb93c59b190c92badc0d9204cc65b014de8923482ad93c21f64ae9ab?context=explore)
+- ベースイメージ: [nvidia/cuda:11.3.1-cudnn8-devel-ubuntu20.04](https://hub.docker.com/layers/nvidia/cuda/11.3.1-cudnn8-devel-ubuntu20.04/images/sha256-7916b3cbe8b75c9bd324d3bc4a31eaa4b682202f255c4dda67abb99ebf79c13f?context=explore)
 - 依存ライブラリ
   - OpenCV 4.5.4
   - Boost 1.71.0
